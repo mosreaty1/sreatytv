@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sreaty TV - Stream Anywhere, Anytime</title>
+    <title>Sreaty TV - شاهد المباريات مباشرة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,12 +13,36 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
             line-height: 1.6;
             color: #ffffff;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: #0a0e27;
             min-height: 100vh;
             overflow-x: hidden;
+            direction: rtl;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 25%, #2d3748 50%, #1a1f3a 75%, #0a0e27 100%);
+            z-index: -2;
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
         }
 
         .container {
@@ -26,98 +51,110 @@
             padding: 0 20px;
         }
 
-        .floating-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .floating-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-circle:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-circle:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .floating-circle:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
         header {
             padding: 2rem 0;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00c851, #007e33);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 4px 20px rgba(0, 200, 81, 0.3);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #00c851, #007e33);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 200, 81, 0.4);
         }
 
         .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 0.9rem;
+            opacity: 0.8;
             font-weight: 300;
+            color: #a0aec0;
         }
 
         .hero {
-            padding: 4rem 0;
+            padding: 6rem 0;
             text-align: center;
             position: relative;
         }
 
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 200, 81, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
         .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             animation: slideInUp 1s ease-out;
         }
 
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: #a0aec0;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             margin-bottom: 3rem;
             opacity: 0.9;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            animation: slideInUp 1s ease-out 0.2s both;
+            color: #cbd5e0;
+            line-height: 1.8;
+            animation: slideInUp 1s ease-out 0.4s both;
         }
 
         @keyframes slideInUp {
@@ -135,13 +172,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2rem;
+            gap: 2.5rem;
             margin-bottom: 4rem;
-            animation: slideInUp 1s ease-out 0.4s both;
+            animation: slideInUp 1s ease-out 0.6s both;
         }
 
         .app-info {
-            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
         }
 
         .version-info {
@@ -150,14 +191,15 @@
             justify-content: center;
             flex-wrap: wrap;
             font-size: 0.9rem;
-            opacity: 0.8;
         }
 
         .version-info span {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
+            background: rgba(0, 200, 81, 0.1);
+            color: #00c851;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 200, 81, 0.2);
+            font-weight: 600;
         }
 
         .download-buttons {
@@ -165,88 +207,48 @@
             gap: 1.5rem;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        .main-download {
-            background: linear-gradient(45deg, #28a745, #20c997);
-            border: 2px solid rgba(40, 167, 69, 0.5);
-            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3);
-        }
-
-        .main-download:hover {
-            background: linear-gradient(45deg, #218838, #1ba085);
-            box-shadow: 0 8px 30px rgba(40, 167, 69, 0.5);
-        }
-
-        .secondary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .security-notice {
-            text-align: center;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .security-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(40, 167, 69, 0.2);
-            color: #28a745;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            border: 1px solid rgba(40, 167, 69, 0.3);
-        }
-
-        .security-notice p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin: 0;
         }
 
         .download-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
+            gap: 1rem;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
             color: white;
             text-decoration: none;
             font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            font-weight: 700;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            text-align: center;
+            min-width: 220px;
+            justify-content: center;
         }
 
-        .download-btn:hover {
+        .main-download {
+            background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
+            box-shadow: 0 8px 32px rgba(0, 200, 81, 0.4);
+            border: 2px solid rgba(0, 200, 81, 0.3);
+        }
+
+        .main-download:hover {
             transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 200, 81, 0.6);
+            border-color: rgba(0, 200, 81, 0.6);
         }
 
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+        .secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
         }
 
-        .download-btn:hover::before {
-            left: 100%;
+        .secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
         }
 
         .platform-icon {
@@ -255,91 +257,129 @@
             fill: currentColor;
         }
 
-        .features {
-            padding: 4rem 0;
-            background: rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            margin: 2rem 0;
+        .security-notice {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .features h2 {
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 200, 81, 0.15);
+            color: #00c851;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0, 200, 81, 0.3);
+        }
+
+        .security-notice p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+            color: #a0aec0;
+        }
+
+        .features {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.02);
+            margin: 4rem 0;
+        }
+
+        .section-header {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #a0aec0;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
             border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
             text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 200, 81, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
         .feature-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #00c851, #007e33);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 200, 81, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-card p {
+            color: #a0aec0;
+            line-height: 1.7;
         }
 
         .installation {
-            padding: 4rem 0;
-            background: rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            margin: 2rem 0;
-        }
-
-        .installation h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            padding: 6rem 0;
+            background: rgba(0, 0, 0, 0.2);
+            margin: 4rem 0;
         }
 
         .install-steps {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin: 3rem 0;
         }
 
         .step-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            transition: all 0.4s ease;
             display: flex;
             align-items: flex-start;
             gap: 1.5rem;
@@ -347,76 +387,88 @@
 
         .step-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 200, 81, 0.3);
         }
 
         .step-number {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #00c851, #007e33);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-weight: 900;
+            font-size: 1.3rem;
             flex-shrink: 0;
+            box-shadow: 0 5px 20px rgba(0, 200, 81, 0.4);
         }
 
         .step-content h3 {
-            margin-bottom: 0.5rem;
-            color: #fff;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .step-content p {
-            opacity: 0.9;
-            line-height: 1.6;
+            color: #a0aec0;
+            line-height: 1.7;
         }
 
         .compatibility-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
+            background: rgba(0, 200, 81, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 200, 81, 0.2);
+            margin-top: 3rem;
         }
 
         .compatibility-info h3 {
-            margin-bottom: 1rem;
-            color: #4ecdc4;
+            margin-bottom: 1.5rem;
+            color: #00c851;
+            font-size: 1.4rem;
+            font-weight: 700;
         }
 
         .compatibility-info ul {
             list-style: none;
             padding: 0;
             display: inline-block;
-            text-align: left;
+            text-align: right;
         }
 
         .compatibility-info li {
-            padding: 0.3rem 0;
-            opacity: 0.9;
+            padding: 0.5rem 0;
+            color: #cbd5e0;
+            font-weight: 500;
         }
 
         .compatibility-info li:before {
             content: "✓ ";
-            color: #28a745;
+            color: #00c851;
             font-weight: bold;
-            margin-right: 0.5rem;
+            margin-left: 0.5rem;
         }
 
         footer {
             text-align: center;
-            padding: 2rem 0;
-            opacity: 0.8;
+            padding: 3rem 0;
+            background: rgba(0, 0, 0, 0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0aec0;
         }
 
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
             
             .download-buttons {
@@ -427,11 +479,21 @@
             .download-btn {
                 width: 100%;
                 max-width: 300px;
-                justify-content: center;
             }
             
             .features-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .version-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
         }
 
@@ -441,64 +503,82 @@
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.02); }
             100% { transform: scale(1); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="floating-elements">
-        <div class="floating-circle"></div>
-        <div class="floating-circle"></div>
-        <div class="floating-circle"></div>
-    </div>
+    <div class="background-overlay"></div>
+    <div class="grid-pattern"></div>
 
     <header>
         <div class="container">
-            <div class="logo">Sreaty TV</div>
-            <div class="tagline">Live Football Streaming App</div>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">⚽</div>
+                    <div>
+                        <div class="logo">Sreaty TV</div>
+                        <div class="tagline">تطبيق البث المباشر للمباريات</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <main>
         <section class="hero">
             <div class="container">
-                <h1>Live Football Streaming</h1>
-                <p>Never miss a match! Watch live football games from leagues around the world. Stream HD quality matches directly on your mobile device, anywhere, anytime.</p>
-                
-                <div class="download-section">
-                    <div class="app-info">
-                        <div class="version-info">
-                            <span class="version">Version 2.1.0</span>
-                            <span class="size">30 MB</span>
-                            <span class="date">Updated: June 2025</span>
-                        </div>
-                    </div>
+                <div class="hero-content">
+                    <h1>شاهد جميع المباريات مباشرة</h1>
+                    <div class="hero-subtitle">البث المباشر عالي الجودة</div>
+                    <p>استمتع بمشاهدة مباريات كرة القدم من جميع الدوريات العالمية بجودة عالية ومجاناً. شاهد الدوري الإنجليزي، الليجا، الدوري الإيطالي والمزيد على هاتفك المحمول في أي وقت ومن أي مكان.</p>
                     
-                    <div class="download-buttons">
-                        <a href="https://apk.e-droid.net/apk/app3634300-34bi1k.apk?v=1" class="download-btn pulse main-download" id="androidBtn" download="Sreaty-TV-v2.1.0.apk">
-                            <svg class="platform-icon" viewBox="0 0 24 24">
-                                <path d="M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z"/>
-                            </svg>
-                            Download APK (30 MB)
-                        </a>
+                    <div class="download-section">
+                        <div class="app-info">
+                            <div class="version-info">
+                                <span>الإصدار 2.1.0</span>
+                                <span>حجم التطبيق 30 ميجا</span>
+                                <span>محدث يونيو 2025</span>
+                            </div>
+                        </div>
                         
-                        <a href="#installation" class="download-btn secondary" id="installGuideBtn">
-                            <svg class="platform-icon" viewBox="0 0 24 24">
-                                <path d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C7.59,8 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20Z"/>
-                            </svg>
-                            Installation Guide
-                        </a>
-                    </div>
-                    
-                    <div class="security-notice">
-                        <div class="security-badge">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
-                            </svg>
-                            Verified & Safe
+                        <div class="download-buttons">
+                            <a href="https://apk.e-droid.net/apk/app3634300-34bi1k.apk?v=1" class="download-btn pulse main-download" id="androidBtn" download="Sreaty-TV-v2.1.0.apk">
+                                <svg class="platform-icon" viewBox="0 0 24 24">
+                                    <path d="M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z"/>
+                                </svg>
+                                تحميل التطبيق (30 ميجا)
+                            </a>
+                            
+                            <a href="#installation" class="download-btn secondary" id="installGuideBtn">
+                                <svg class="platform-icon" viewBox="0 0 24 24">
+                                    <path d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C7.59,8 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20Z"/>
+                                </svg>
+                                دليل التثبيت
+                            </a>
                         </div>
-                        <p>Direct APK download • Virus scanned • Instant download starts</p>
+                        
+                        <div class="security-notice">
+                            <div class="security-badge">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+                                </svg>
+                                آمن ومفحوص
+                            </div>
+                            <p>تحميل مباشر من المصدر الرسمي • مفحوص ضد الفيروسات • تحميل آمن</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -506,37 +586,41 @@
 
         <section class="features">
             <div class="container">
-                <h2>Why Choose Sreaty TV for Football?</h2>
+                <div class="section-header">
+                    <h2 class="section-title">لماذا تختار Sreaty TV؟</h2>
+                    <p class="section-subtitle">أفضل تطبيق لمشاهدة المباريات المباشرة بجودة عالية ومجاناً</p>
+                </div>
+                
                 <div class="features-grid">
-                    <div class="feature-card">
+                    <div class="feature-card fade-in">
                         <div class="feature-icon">⚽</div>
-                        <h3>Live Football Matches</h3>
-                        <p>Watch live football games from major leagues including Premier League, La Liga, Serie A, and more.</p>
+                        <h3>المباريات المباشرة</h3>
+                        <p>شاهد مباريات كرة القدم مباشرة من الدوريات الكبرى مثل الدوري الإنجليزي والليجا والدوري الإيطالي والمزيد.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card fade-in">
                         <div class="feature-icon">🏆</div>
-                        <h3>Multiple Leagues</h3>
-                        <p>Access matches from top football leagues and tournaments worldwide, all in one app.</p>
+                        <h3>جميع الدوريات</h3>
+                        <p>الوصول إلى مباريات من أفضل دوريات كرة القدم والبطولات العالمية في تطبيق واحد.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card fade-in">
                         <div class="feature-icon">📱</div>
-                        <h3>Mobile Optimized</h3>
-                        <p>Perfectly designed for mobile viewing with intuitive controls and seamless streaming.</p>
+                        <h3>محسن للجوال</h3>
+                        <p>مصمم خصيصاً للهواتف المحمولة مع واجهة سهلة الاستخدام وبث سلس.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card fade-in">
                         <div class="feature-icon">🔴</div>
-                        <h3>HD Live Streaming</h3>
-                        <p>Crystal clear HD quality streams with minimal buffering for the best viewing experience.</p>
+                        <h3>جودة عالية HD</h3>
+                        <p>بث مباشر بجودة عالية الوضوح مع أقل تقطيع لأفضل تجربة مشاهدة.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card fade-in">
                         <div class="feature-icon">🕒</div>
-                        <h3>Match Schedules</h3>
-                        <p>Never miss a game with integrated match schedules and live score updates.</p>
+                        <h3>جدولة المباريات</h3>
+                        <p>لا تفوت أي مباراة مع جداول المباريات المدمجة وتحديثات النتائج المباشرة.</p>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card fade-in">
                         <div class="feature-icon">🆓</div>
-                        <h3>Free to Use</h3>
-                        <p>Enjoy unlimited football streaming completely free - no subscriptions or hidden fees.</p>
+                        <h3>مجاني تماماً</h3>
+                        <p>استمتع بالبث المباشر للمباريات مجاناً بالكامل - بدون اشتراكات أو رسوم مخفية.</p>
                     </div>
                 </div>
             </div>
@@ -544,39 +628,43 @@
 
         <section class="installation" id="installation">
             <div class="container">
-                <h2>Installation Guide</h2>
+                <div class="section-header">
+                    <h2 class="section-title">دليل التثبيت</h2>
+                    <p class="section-subtitle">خطوات بسيطة لتثبيت التطبيق على هاتفك الأندرويد</p>
+                </div>
+                
                 <div class="install-steps">
-                    <div class="step-card">
+                    <div class="step-card fade-in">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <h3>Enable Unknown Sources</h3>
-                            <p>Go to Settings > Security > Enable "Unknown Sources" or "Install Unknown Apps" to allow APK installations.</p>
+                            <h3>تفعيل المصادر غير المعروفة</h3>
+                            <p>اذهب إلى الإعدادات > الأمان > فعل "المصادر غير المعروفة" أو "تثبيت التطبيقات المجهولة" للسماح بتثبيت ملفات APK.</p>
                         </div>
                     </div>
-                    <div class="step-card">
+                    <div class="step-card fade-in">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <h3>Download APK</h3>
-                            <p>Click the download button above to instantly download the Sreaty TV APK file (30 MB) directly to your device.</p>
+                            <h3>تحميل ملف APK</h3>
+                            <p>اضغط على زر التحميل أعلاه لتحميل ملف Sreaty TV APK مباشرة على جهازك (30 ميجا).</p>
                         </div>
                     </div>
-                    <div class="step-card">
+                    <div class="step-card fade-in">
                         <div class="step-number">3</div>
                         <div class="step-content">
-                            <h3>Install & Enjoy</h3>
-                            <p>Open the downloaded APK file and follow the installation prompts. Launch Sreaty TV and start streaming!</p>
+                            <h3>التثبيت والاستمتاع</h3>
+                            <p>افتح ملف APK المحمل واتبع تعليمات التثبيت. افتح تطبيق Sreaty TV وابدأ في مشاهدة المباريات!</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="compatibility-info">
-                    <h3>System Requirements</h3>
+                <div class="compatibility-info fade-in">
+                    <h3>متطلبات النظام</h3>
                     <ul>
-                        <li>Android 5.0 (API level 21) or higher</li>
-                        <li>Minimum 2GB RAM recommended</li>
-                        <li>50MB free storage space</li>
-                        <li>Stable internet connection for streaming</li>
-                        <li>Compatible with all Android devices</li>
+                        <li>أندرويد 5.0 (مستوى API 21) أو أحدث</li>
+                        <li>2 جيجا رام كحد أدنى مستحسن</li>
+                        <li>50 ميجا مساحة تخزين فارغة</li>
+                        <li>اتصال إنترنت مستقر للبث</li>
+                        <li>متوافق مع جميع أجهزة الأندرويد</li>
                     </ul>
                 </div>
             </div>
@@ -585,15 +673,14 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Sreaty TV - Football Streaming App. All rights reserved. | Contact: support@sreatytv.com</p>
+            <p>&copy; 2025 Sreaty TV - تطبيق البث المباشر للمباريات. جميع الحقوق محفوظة. | التواصل: support@sreatytv.com</p>
         </div>
     </footer>
 
     <script>
-        // Add interactive download button functionality
+        // Smooth scrolling and interactions
         document.getElementById('androidBtn').addEventListener('click', function(e) {
-            // Direct download will start automatically
-            showNotification('Download started! Check your downloads folder.', 'success');
+            showNotification('بدأ التحميل! تحقق من مجلد التحميلات.', 'success');
         });
 
         document.getElementById('installGuideBtn').addEventListener('click', function(e) {
@@ -607,22 +694,24 @@
         // Notification system
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
             notification.textContent = message;
             
             notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: ${type === 'success' ? '#28a745' : '#007bff'};
+                background: ${type === 'success' ? '#00c851' : '#007bff'};
                 color: white;
                 padding: 1rem 1.5rem;
                 border-radius: 10px;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                box-shadow: 0 8px 32px rgba(0,0,0,0.3);
                 z-index: 10000;
                 opacity: 0;
-                transform: translateX(100%);
-                transition: all 0.3s ease;
+                transform: translateX(-100%);
+                transition: all 0.4s ease;
+                font-family: 'Cairo', sans-serif;
+                font-weight: 600;
+                direction: rtl;
             `;
             
             document.body.appendChild(notification);
@@ -634,15 +723,31 @@
             
             setTimeout(() => {
                 notification.style.opacity = '0';
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => notification.remove(), 300);
+                notification.style.transform = 'translateX(-100%)';
+                setTimeout(() => notification.remove(), 400);
             }, 4000);
         }
 
-        // Remove the APK file check since we're using MediaFire
-        // The download link is now direct to MediaFire
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        // Add smooth scrolling for better UX
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Smooth scrolling for all anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -654,29 +759,6 @@
                     });
                 }
             });
-        });
-
-        // Add intersection observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe feature cards for staggered animation
-        document.querySelectorAll('.feature-card').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-            observer.observe(card);
         });
     </script>
 </body>
