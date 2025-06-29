@@ -56,9 +56,38 @@
             background: rgba(10, 14, 39, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
+            transition: all 0.4s ease;
+            transform: translateY(0);
+        }
+
+        header.scrolled {
+            padding: 1rem 0;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(0, 200, 81, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
+        }
+
+        header.scrolled .logo {
+            font-size: 1.8rem;
+        }
+
+        header.scrolled .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        header.scrolled .tagline {
+            font-size: 0.8rem;
         }
 
         .header-content {
@@ -104,7 +133,7 @@
         }
 
         .hero {
-            padding: 6rem 0;
+            padding: 8rem 0 6rem 0;
             text-align: center;
             position: relative;
         }
@@ -678,6 +707,32 @@
     </footer>
 
     <script>
+        // Header scroll effects
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add/remove scrolled class based on scroll position
+            if (scrollTop > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Hide/show header based on scroll direction
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                // Scrolling down - hide header
+                header.classList.add('hidden');
+            } else {
+                // Scrolling up - show header
+                header.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
         // Smooth scrolling and interactions
         document.getElementById('androidBtn').addEventListener('click', function(e) {
             showNotification('بدأ التحميل! تحقق من مجلد التحميلات.', 'success');
